@@ -368,11 +368,8 @@ function Index() {
             Invest globally. Play locally.
           </p>
           <div className="mt-4 grid grid-cols-4 gap-x-2 gap-y-4">
-            {countries.map(([flag, name]) => (
-              <div key={name} className="text-center">
-                <p className="text-3xl">{flag}</p>
-                <p className="mt-1 text-[11px] font-medium">{name}</p>
-              </div>
+            {countries.map(([bg, name]) => (
+              <Flag key={name} bg={bg} name={name} />
             ))}
           </div>
           <p className="mt-4 text-center text-xs font-bold text-primary">
