@@ -19,6 +19,7 @@ import hero from "@/assets/hero.jpg";
 import phoneCoins from "@/assets/phone-coins.jpg";
 import chart from "@/assets/chart.jpg";
 import coin from "@/assets/coin.png";
+import logoAsset from "@/assets/logo.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -106,9 +107,13 @@ function Flag({ bg, name }: { bg: string; name: string }) {
 function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-xl font-black text-primary-foreground shadow-[var(--glow-red)]">
-        S
-      </div>
+      <img
+        src={logoAsset.url}
+        alt="SportyBet Stock Market logo"
+        width={36}
+        height={36}
+        className="h-9 w-9 rounded-lg object-cover shadow-[var(--glow-red)]"
+      />
       <div className="leading-none">
         <p className="text-lg font-black italic tracking-tight text-foreground">
           SPORTYBET
