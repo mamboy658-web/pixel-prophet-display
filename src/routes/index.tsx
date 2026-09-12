@@ -77,18 +77,31 @@ const cryptoPerks = [
   "Supported by SportyBet",
 ];
 
-const countries = [
-  ["🇳🇬", "Nigeria"],
-  ["🇬🇭", "Ghana"],
-  ["🇰🇪", "Kenya"],
-  ["🇿🇦", "South Africa"],
-  ["🇺🇬", "Uganda"],
-  ["🇿🇲", "Zambia"],
-  ["🇹🇿", "Tanzania"],
-  ["🇺🇸", "USA"],
-  ["🇬🇧", "UK"],
-  ["🇨🇦", "Canada"],
-] as const;
+const countries: [string, string][] = [
+  ["linear-gradient(90deg,#008751 33%,#fff 33%,#fff 66%,#008751 66%)", "Nigeria"],
+  ["linear-gradient(180deg,#ce1126 33%,#fcd116 33%,#fcd116 66%,#006b3f 66%)", "Ghana"],
+  ["linear-gradient(180deg,#000 30%,#bb1e10 30%,#bb1e10 70%,#006600 70%)", "Kenya"],
+  ["linear-gradient(180deg,#e03c31 25%,#007749 25%,#007749 50%,#001489 50%,#001489 75%,#ffb81c 75%)", "South Africa"],
+  ["linear-gradient(180deg,#000 33%,#fcdc04 33%,#fcdc04 66%,#d90000 66%)", "Uganda"],
+  ["linear-gradient(180deg,#198a00 70%,#ef7d00 70%,#ef7d00 85%,#000 85%)", "Zambia"],
+  ["linear-gradient(135deg,#1eb53a 40%,#fcd116 45%,#000 50%,#fcd116 55%,#00a3dd 60%)", "Tanzania"],
+  ["linear-gradient(180deg,#b22234 50%,#3c3b6e 50%)", "USA"],
+  ["linear-gradient(90deg,#012169 40%,#fff 40%,#fff 60%,#012169 60%)", "UK"],
+  ["linear-gradient(90deg,#d80621 25%,#fff 25%,#fff 75%,#d80621 75%)", "Canada"],
+];
+
+function Flag({ bg, name }: { bg: string; name: string }) {
+  return (
+    <div className="text-center">
+      <span
+        aria-label={`${name} flag`}
+        className="mx-auto block h-8 w-11 rounded-sm border border-border shadow"
+        style={{ background: bg }}
+      />
+      <p className="mt-1 text-[11px] font-medium">{name}</p>
+    </div>
+  );
+}
 
 function Logo() {
   return (
