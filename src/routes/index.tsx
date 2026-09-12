@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   Home,
   Play,
@@ -14,6 +15,8 @@ import {
   Check,
   Bitcoin,
   ArrowRight,
+  EyeOff,
+  X,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import phoneCoins from "@/assets/phone-coins.jpg";
@@ -126,7 +129,129 @@ function Logo() {
   );
 }
 
+function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [remember, setRemember] = useState(true);
+  const [keepSignedIn, setKeepSignedIn] = useState(true);
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-start justify-center bg-black/80 backdrop-blur-sm sm:items-center">
+      <div className="relative flex h-full w-full flex-col bg-background sm:h-auto sm:max-w-md sm:rounded-2xl sm:border sm:border-border sm:shadow-2xl">
+        {/* Header */}
+        <div className="relative flex items-center justify-center bg-primary px-4 py-4 sm:rounded-t-2xl">
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
+            aria-label="Close sign up"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <p className="text-2xl font-black italic tracking-tight text-white">
+            SportyBet
+          </p>
+        </div>
+
+        {/* Form */}
+        <form
+          className="flex flex-1 flex-col gap-5 px-5 py-6 sm:flex-none"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Spotify ID"
+              className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <Eye className="h-5 w-5" />
+                ) : (
+                  <EyeOff className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+            <div className="relative">
+              <input
+                type={showConfirm ? "text" : "password"}
+                placeholder="Confirm Password"
+                className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirm((s) => !s)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                aria-label={showConfirm ? "Hide confirm password" : "Show confirm password"}
+              >
+                {showConfirm ? (
+                  <Eye className="h-5 w-5" />
+                ) : (
+                  <EyeOff className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <label className="flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+                className="peer sr-only"
+              />
+              <span className="flex h-5 w-5 items-center justify-center rounded border border-primary bg-transparent text-primary-foreground peer-checked:border-0 peer-checked:bg-primary">
+                <Check className="h-3.5 w-3.5" />
+              </span>
+              <span className="text-sm font-medium text-primary">Remember me</span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={keepSignedIn}
+                onChange={(e) => setKeepSignedIn(e.target.checked)}
+                className="peer sr-only"
+              />
+              <span className="flex h-5 w-5 items-center justify-center rounded border border-primary bg-transparent text-primary-foreground peer-checked:border-0 peer-checked:bg-primary">
+                <Check className="h-3.5 w-3.5" />
+              </span>
+              <span className="text-sm font-medium text-primary">Keep me signed in</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="mt-auto w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground sm:mt-0"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
+  const [signUpOpen, setSignUpOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
@@ -146,12 +271,17 @@ function Index() {
             <span className="rounded-full border border-primary px-5 py-1.5 text-sm font-semibold text-primary">
               Login
             </span>
-            <span className="rounded-full bg-primary px-5 py-1.5 text-sm font-semibold text-primary-foreground">
+            <button
+              onClick={() => setSignUpOpen(true)}
+              className="rounded-full bg-primary px-5 py-1.5 text-sm font-semibold text-primary-foreground"
+            >
               Sign Up
-            </span>
+            </button>
           </div>
         </div>
       </header>
+
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
