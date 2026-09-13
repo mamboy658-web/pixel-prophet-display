@@ -259,8 +259,143 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
   );
 }
 
+function LoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(true);
+  const [keepSignedIn, setKeepSignedIn] = useState(true);
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-start justify-center bg-black/80 backdrop-blur-sm sm:items-center"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="relative flex h-full w-full flex-col bg-background sm:h-auto sm:max-w-md sm:rounded-2xl sm:border sm:border-border sm:shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Login"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="relative flex items-center bg-primary px-5 py-4 sm:rounded-t-2xl">
+          <p className="text-2xl font-black italic tracking-tight text-white">
+            SportyBet
+          </p>
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
+            aria-label="Close login"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Form */}
+        <form
+          className="flex flex-1 flex-col gap-5 px-5 py-6 sm:flex-none"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <div className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <Eye className="h-5 w-5" />
+                ) : (
+                  <EyeOff className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <label className="flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+                className="peer sr-only"
+              />
+              <span className="flex h-5 w-5 items-center justify-center rounded border border-primary bg-transparent text-primary-foreground peer-checked:border-0 peer-checked:bg-primary">
+                <Check className="h-3.5 w-3.5" />
+              </span>
+              <span className="text-sm font-medium text-primary">Remember me</span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={keepSignedIn}
+                onChange={(e) => setKeepSignedIn(e.target.checked)}
+                className="peer sr-only"
+              />
+              <span className="flex h-5 w-5 items-center justify-center rounded border border-primary bg-transparent text-primary-foreground peer-checked:border-0 peer-checked:bg-primary">
+                <Check className="h-3.5 w-3.5" />
+              </span>
+              <span className="text-sm font-medium text-primary">Keep me signed in</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground"
+          >
+            Login
+          </button>
+
+          <div className="flex items-center justify-between text-sm font-medium text-success">
+            <span className="cursor-pointer">Forgot Password?</span>
+            <span className="cursor-pointer">Create New Account</span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="h-px flex-1 bg-success" />
+            <span className="text-sm font-medium text-foreground">Or</span>
+            <span className="h-px flex-1 bg-success" />
+          </div>
+
+          <p className="text-center text-sm text-muted-foreground">
+            To deactivate or reactivate your account{" "}
+            <span className="cursor-pointer font-medium text-success">click here.</span>
+          </p>
+        </form>
+
+        {/* Footer */}
+        <div className="flex flex-col items-center justify-center gap-2 pb-6 pt-2 text-xs text-muted-foreground">
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-5 w-5 text-muted-foreground/70"
+            aria-hidden="true"
+          >
+            <path d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10Z" />
+          </svg>
+          <p>Powered by Spotybet @2026</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const [signUpOpen, setSignUpOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -278,9 +413,12 @@ function Index() {
             <span>Contact</span>
           </nav>
           <div className="flex items-center gap-2">
-            <span className="rounded-full border border-primary px-5 py-1.5 text-sm font-semibold text-primary">
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-full border border-primary px-5 py-1.5 text-sm font-semibold text-primary"
+            >
               Login
-            </span>
+            </button>
             <button
               onClick={() => setSignUpOpen(true)}
               className="rounded-full bg-primary px-5 py-1.5 text-sm font-semibold text-primary-foreground"
@@ -291,6 +429,7 @@ function Index() {
         </div>
       </header>
 
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
 
       {/* Hero */}
