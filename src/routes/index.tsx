@@ -17,12 +17,23 @@ import {
   ArrowRight,
   EyeOff,
   X,
+  Search,
+  ChevronRight,
+  RefreshCw,
+  CircleDollarSign,
+  ReceiptText,
+  Send,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import phoneCoins from "@/assets/phone-coins.jpg";
 import chart from "@/assets/chart.jpg";
 import coin from "@/assets/coin.png";
 import logoAsset from "@/assets/logo.jpg.asset.json";
+import investmentHomeHero from "@/assets/investment-home-hero.jpg";
+import sportyHero from "@/assets/sporty-hero-package.jpg";
+import sportyJet from "@/assets/sporty-jet-package.jpg";
+import sportyDrive from "@/assets/sporty-drive-package.jpg";
+import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -129,7 +140,15 @@ function Logo() {
   );
 }
 
-function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function SignUpModal({
+  open,
+  onClose,
+  onSuccess,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [remember, setRemember] = useState(true);
@@ -167,7 +186,10 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
         {/* Form */}
         <form
           className="flex flex-1 flex-col gap-5 px-5 py-6 sm:flex-none"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSuccess();
+          }}
         >
           <div className="space-y-4">
             <input
@@ -259,7 +281,15 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
   );
 }
 
-function LoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function LoginModal({
+  open,
+  onClose,
+  onSuccess,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
   const [keepSignedIn, setKeepSignedIn] = useState(true);
@@ -296,7 +326,10 @@ function LoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         {/* Form */}
         <form
           className="flex flex-1 flex-col gap-5 px-5 py-6 sm:flex-none"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSuccess();
+          }}
         >
           <div className="space-y-4">
             <input
@@ -393,9 +426,216 @@ function LoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   );
 }
 
+const investmentPackages = [
+  {
+    name: "Sporty Hero",
+    image: sportyHero,
+    price: "$ 1.00",
+    daily: "5%",
+    days: "40",
+    profit: "$ 2.00",
+    stock: "1,000,000",
+    label: "SPORTY\nHERO",
+  },
+  {
+    name: "Sporty Jet",
+    image: sportyJet,
+    price: "$ 5.00",
+    daily: "5%",
+    days: "50",
+    profit: "$ 12.50",
+    stock: "1,000,000",
+    label: "SPORTY\nJET",
+  },
+  {
+    name: "Sporty Drive",
+    image: sportyDrive,
+    price: "$ 100.00",
+    daily: "10%",
+    days: "30",
+    profit: "$ 300.00",
+    stock: "10,000",
+    label: "SPORTY\nDRIVE",
+  },
+  {
+    name: "Sporty Jet Ultra",
+    image: sportyJetUltra,
+    price: "$ 150.00",
+    daily: "12%",
+    days: "45",
+    profit: "$ 810.00",
+    stock: "5,000",
+    label: "SPORTY\nJET ULTRA",
+  },
+];
+
+function PackageArtwork({
+  image,
+  label,
+  eager = false,
+}: {
+  image: string;
+  label: string;
+  eager?: boolean;
+}) {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-surface">
+      <img
+        src={image}
+        alt=""
+        loading={eager ? "eager" : "lazy"}
+        width={768}
+        height={768}
+        className="h-full w-full object-cover"
+      />
+      <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-surface via-surface/70 to-transparent" />
+      <p className="absolute inset-x-1 bottom-2 whitespace-pre-line text-center text-[clamp(12px,3.4vw,25px)] font-black italic leading-[0.83] text-foreground drop-shadow-[0_2px_2px_var(--surface)]">
+        {label}
+      </p>
+    </div>
+  );
+}
+
+function InvestmentHome() {
+  const navItems = [
+    { icon: Home, label: "Home", active: true },
+    { icon: CircleDollarSign, label: "Invest" },
+    { icon: RefreshCw, label: "Swap" },
+    { icon: Trophy, label: "Leaderboard" },
+    { icon: ReceiptText, label: "Income" },
+    { icon: User, label: "Me", dot: true },
+  ];
+
+  return (
+    <div className="min-h-screen bg-surface pb-24 text-foreground">
+      <div className="mx-auto min-h-screen w-full max-w-[720px] bg-surface shadow-2xl">
+        <header className="sticky top-0 z-40 flex h-[66px] items-center justify-between bg-primary px-5">
+          <div className="flex items-center gap-1.5">
+            <img
+              src={logoAsset.url}
+              alt=""
+              width={34}
+              height={34}
+              className="h-8 w-8 rounded-md object-cover"
+            />
+            <span className="text-[26px] font-black italic leading-none text-primary-foreground">
+              SportyBet
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <Search className="h-7 w-7 text-primary-foreground" strokeWidth={3} />
+            <div className="flex h-10 items-center gap-2 rounded-full border border-primary-foreground px-3 text-sm font-semibold text-primary-foreground">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success text-lg font-black">$</span>
+              USD 0.36
+            </div>
+          </div>
+        </header>
+
+        <main>
+          <section className="relative h-[230px] overflow-hidden">
+            <img
+              src={investmentHomeHero}
+              alt="Football player holding a flaming ball"
+              width={1440}
+              height={600}
+              className="absolute inset-0 h-full w-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/70 to-transparent" />
+            <div className="relative z-10 px-5 pt-7">
+              <h1 className="text-[27px] font-extrabold leading-tight">
+                <span className="text-primary">Invest</span> in your future.
+              </h1>
+              <p className="mt-2 max-w-[310px] text-[17px] font-medium leading-snug">
+                Start building your future now<br />with Spotty Bets stock investments.
+              </p>
+              <span className="mt-3 block h-1 w-12 bg-primary" />
+              <span className="mt-3 inline-flex h-14 items-center gap-5 rounded-full bg-primary px-7 text-lg font-bold text-primary-foreground">
+                <Wallet className="h-7 w-7 fill-current" /> Deposit
+                <ChevronRight className="h-6 w-6" />
+              </span>
+            </div>
+          </section>
+
+          <section className="grid grid-cols-3 gap-2.5 px-5 py-3">
+            {investmentPackages.slice(0, 3).map((item) => (
+              <div key={item.name} className="aspect-[1.17] overflow-hidden rounded-md border border-border">
+                <PackageArtwork image={item.image} label={item.label} eager />
+              </div>
+            ))}
+          </section>
+
+          <section className="px-5 pb-8">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-[22px] font-bold">Investment Packages</h2>
+              <span className="flex items-center gap-2 text-sm font-semibold">View All <ChevronRight className="h-5 w-5" /></span>
+            </div>
+            <div className="space-y-3">
+              {investmentPackages.map((item) => (
+                <article key={item.name} className="grid min-h-[190px] grid-cols-[162px_1fr] gap-4 rounded-md border border-border p-3 sm:grid-cols-[162px_1fr_158px]">
+                  <div className="h-[166px] overflow-hidden rounded-md">
+                    <PackageArtwork image={item.image} label={item.label} />
+                  </div>
+                  <div className="min-w-0 py-1">
+                    <h3 className="mb-2 text-lg font-bold">{item.name}</h3>
+                    {[
+                      ["Price", item.price],
+                      ["Daily profit", item.daily],
+                      ["Days", item.days],
+                      ["Total profit", item.profit],
+                      ["Total stock", item.stock],
+                    ].map(([label, value]) => (
+                      <div key={label} className="flex items-center justify-between gap-2 border-b border-border/60 py-[3px] text-[13px] last:border-0">
+                        <span className="text-muted-foreground">{label}</span>
+                        <span className="font-semibold">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="col-span-2 flex items-center justify-end sm:col-span-1">
+                    <span className="inline-flex h-11 min-w-[142px] items-center justify-center rounded-full bg-success px-5 text-sm font-semibold text-success-foreground">
+                      Invest Now
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </main>
+
+        <div className="fixed bottom-[75px] right-[calc(max((100vw-720px)/2,0px)+18px)] z-40 flex flex-col items-center">
+          <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-chart-3 text-primary-foreground shadow-xl">
+            <Send className="h-8 w-8 -rotate-12 fill-current" />
+            <span className="absolute right-0 top-0 h-4 w-4 rounded-full bg-primary" />
+          </span>
+          <span className="-mt-1 rounded-full bg-chart-3 px-3 py-1 text-[11px] text-primary-foreground">Join Channel</span>
+        </div>
+
+        <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto grid h-[76px] max-w-[720px] grid-cols-6 border-t border-border bg-surface px-2">
+          {navItems.map((item) => (
+            <div key={item.label} className="relative flex flex-col items-center justify-center gap-1">
+              <item.icon className={`h-7 w-7 ${item.active ? "fill-foreground" : item.label === "Leaderboard" ? "text-gold" : "text-foreground"}`} strokeWidth={2.5} />
+              {item.dot && <span className="absolute right-[27%] top-3 h-3 w-3 rounded-full bg-primary" />}
+              <span className="text-[11px] font-medium">{item.label}</span>
+            </div>
+          ))}
+        </nav>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+
+  const enterHome = () => {
+    setLoginOpen(false);
+    setSignUpOpen(false);
+    setSignedIn(true);
+    window.scrollTo(0, 0);
+  };
+
+  if (signedIn) return <InvestmentHome />;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -429,8 +669,8 @@ function Index() {
         </div>
       </header>
 
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
-      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} onSuccess={enterHome} />
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} onSuccess={enterHome} />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
