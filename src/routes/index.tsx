@@ -507,32 +507,32 @@ function InvestmentHome() {
   ];
 
   return (
-    <div className="min-h-screen bg-surface pb-24 text-foreground">
-      <div className="mx-auto min-h-screen w-full max-w-[720px] bg-surface shadow-2xl">
-        <header className="sticky top-0 z-40 flex h-[66px] items-center justify-between bg-primary px-5">
+    <div className="min-h-screen bg-surface pb-20 text-foreground">
+      <div className="mx-auto min-h-screen w-full max-w-[390px] bg-surface shadow-2xl">
+        <header className="sticky top-0 z-40 flex h-[50px] items-center justify-between bg-primary px-3">
           <div className="flex items-center gap-1.5">
             <img
               src={logoAsset.url}
               alt=""
               width={34}
               height={34}
-              className="h-8 w-8 rounded-md object-cover"
+              className="h-7 w-7 rounded-md object-cover"
             />
-            <span className="text-[26px] font-black italic leading-none text-primary-foreground">
+            <span className="text-xl font-black italic leading-none text-primary-foreground">
               SportyBet
             </span>
           </div>
-          <div className="flex items-center gap-4">
-            <Search className="h-7 w-7 text-primary-foreground" strokeWidth={3} />
-            <div className="flex h-10 items-center gap-2 rounded-full border border-primary-foreground px-3 text-sm font-semibold text-primary-foreground">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success text-lg font-black">$</span>
+          <div className="flex items-center gap-2.5">
+            <Search className="h-5 w-5 text-primary-foreground" strokeWidth={3} />
+            <div className="flex h-8 items-center gap-1.5 rounded-full border border-primary-foreground px-2 text-[11px] font-semibold text-primary-foreground">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-sm font-black">$</span>
               USD 0.36
             </div>
           </div>
         </header>
 
         <main>
-          <section className="relative h-[230px] overflow-hidden">
+          <section className="relative h-[130px] overflow-hidden">
             <img
               src={investmentHomeHero}
               alt="Football player holding a flaming ball"
@@ -541,42 +541,42 @@ function InvestmentHome() {
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/70 to-transparent" />
-            <div className="relative z-10 px-5 pt-7">
-              <h1 className="text-[27px] font-extrabold leading-tight">
+            <div className="relative z-10 px-3 pt-3.5">
+              <h1 className="text-[16px] font-extrabold leading-tight">
                 <span className="text-primary">Invest</span> in your future.
               </h1>
-              <p className="mt-2 max-w-[310px] text-[17px] font-medium leading-snug">
+              <p className="mt-1 max-w-[180px] text-[10px] font-medium leading-snug">
                 Start building your future now<br />with Spotty Bets stock investments.
               </p>
-              <span className="mt-3 block h-1 w-12 bg-primary" />
-              <span className="mt-3 inline-flex h-14 items-center gap-5 rounded-full bg-primary px-7 text-lg font-bold text-primary-foreground">
-                <Wallet className="h-7 w-7 fill-current" /> Deposit
-                <ChevronRight className="h-6 w-6" />
+              <span className="mt-1.5 block h-0.5 w-6 bg-primary" />
+              <span className="mt-2 inline-flex h-8 items-center gap-3 rounded-full bg-primary px-4 text-xs font-bold text-primary-foreground">
+                <Wallet className="h-4 w-4 fill-current" /> Deposit
+                <ChevronRight className="h-4 w-4" />
               </span>
             </div>
           </section>
 
-          <section className="grid grid-cols-3 gap-2.5 px-5 py-3">
+          <section className="grid grid-cols-3 gap-1.5 px-3 py-2">
             {investmentPackages.slice(0, 3).map((item) => (
-              <div key={item.name} className="aspect-[1.17] overflow-hidden rounded-md border border-border">
+              <div key={item.name} className="aspect-[1.42] overflow-hidden rounded-md border border-border">
                 <PackageArtwork image={item.image} label={item.label} eager />
               </div>
             ))}
           </section>
 
-          <section className="px-5 pb-8">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-[22px] font-bold">Investment Packages</h2>
-              <span className="flex items-center gap-2 text-sm font-semibold">View All <ChevronRight className="h-5 w-5" /></span>
+          <section className="px-3 pb-5">
+            <div className="mb-2 flex items-center justify-between">
+              <h2 className="text-[15px] font-bold">Investment Packages</h2>
+              <span className="flex items-center gap-1 text-[10px] font-semibold">View All <ChevronRight className="h-3.5 w-3.5" /></span>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {investmentPackages.map((item) => (
-                <article key={item.name} className="grid min-h-[190px] grid-cols-[162px_1fr] gap-4 rounded-md border border-border p-3 sm:grid-cols-[162px_1fr_158px]">
-                  <div className="h-[166px] overflow-hidden rounded-md">
+                <article key={item.name} className="grid h-[96px] grid-cols-[82px_1fr_78px] gap-3 rounded-md border border-border p-1.5">
+                  <div className="h-[82px] overflow-hidden rounded-md">
                     <PackageArtwork image={item.image} label={item.label} />
                   </div>
-                  <div className="min-w-0 py-1">
-                    <h3 className="mb-2 text-lg font-bold">{item.name}</h3>
+                  <div className="min-w-0">
+                    <h3 className="mb-1 text-[11px] font-bold">{item.name}</h3>
                     {[
                       ["Price", item.price],
                       ["Daily profit", item.daily],
@@ -584,14 +584,14 @@ function InvestmentHome() {
                       ["Total profit", item.profit],
                       ["Total stock", item.stock],
                     ].map(([label, value]) => (
-                      <div key={label} className="flex items-center justify-between gap-2 border-b border-border/60 py-[3px] text-[13px] last:border-0">
+                      <div key={label} className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[8px] leading-[1.15] last:border-0">
                         <span className="text-muted-foreground">{label}</span>
                         <span className="font-semibold">{value}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="col-span-2 flex items-center justify-end sm:col-span-1">
-                    <span className="inline-flex h-11 min-w-[142px] items-center justify-center rounded-full bg-success px-5 text-sm font-semibold text-success-foreground">
+                  <div className="flex items-center justify-end">
+                    <span className="inline-flex h-8 min-w-[76px] items-center justify-center rounded-full bg-success px-2 text-[9px] font-semibold text-success-foreground">
                       Invest Now
                     </span>
                   </div>
@@ -601,20 +601,20 @@ function InvestmentHome() {
           </section>
         </main>
 
-        <div className="fixed bottom-[75px] right-[calc(max((100vw-720px)/2,0px)+18px)] z-40 flex flex-col items-center">
-          <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-chart-3 text-primary-foreground shadow-xl">
-            <Send className="h-8 w-8 -rotate-12 fill-current" />
-            <span className="absolute right-0 top-0 h-4 w-4 rounded-full bg-primary" />
+        <div className="fixed bottom-[62px] right-[calc(max((100vw-390px)/2,0px)+10px)] z-40 flex flex-col items-center">
+          <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-chart-3 text-primary-foreground shadow-xl">
+            <Send className="h-6 w-6 -rotate-12 fill-current" />
+            <span className="absolute right-0 top-0 h-3 w-3 rounded-full bg-primary" />
           </span>
-          <span className="-mt-1 rounded-full bg-chart-3 px-3 py-1 text-[11px] text-primary-foreground">Join Channel</span>
+          <span className="-mt-1 rounded-full bg-chart-3 px-2 py-0.5 text-[8px] text-primary-foreground">Join Channel</span>
         </div>
 
-        <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto grid h-[76px] max-w-[720px] grid-cols-6 border-t border-border bg-surface px-2">
+        <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto grid h-[58px] max-w-[390px] grid-cols-6 border-t border-border bg-surface px-1">
           {navItems.map((item) => (
             <div key={item.label} className="relative flex flex-col items-center justify-center gap-1">
-              <item.icon className={`h-7 w-7 ${item.active ? "fill-foreground" : item.label === "Leaderboard" ? "text-gold" : "text-foreground"}`} strokeWidth={2.5} />
-              {item.dot && <span className="absolute right-[27%] top-3 h-3 w-3 rounded-full bg-primary" />}
-              <span className="text-[11px] font-medium">{item.label}</span>
+              <item.icon className={`h-5 w-5 ${item.active ? "fill-foreground" : item.label === "Leaderboard" ? "text-gold" : "text-foreground"}`} strokeWidth={2.5} />
+              {item.dot && <span className="absolute right-[25%] top-2 h-2.5 w-2.5 rounded-full bg-primary" />}
+              <span className="text-[8px] font-medium">{item.label}</span>
             </div>
           ))}
         </nav>
