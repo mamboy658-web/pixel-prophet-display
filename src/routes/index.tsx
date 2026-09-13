@@ -413,9 +413,12 @@ function Index() {
             <span>Contact</span>
           </nav>
           <div className="flex items-center gap-2">
-            <span className="rounded-full border border-primary px-5 py-1.5 text-sm font-semibold text-primary">
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="rounded-full border border-primary px-5 py-1.5 text-sm font-semibold text-primary"
+            >
               Login
-            </span>
+            </button>
             <button
               onClick={() => setSignUpOpen(true)}
               className="rounded-full bg-primary px-5 py-1.5 text-sm font-semibold text-primary-foreground"
@@ -426,6 +429,7 @@ function Index() {
         </div>
       </header>
 
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
 
       {/* Hero */}
