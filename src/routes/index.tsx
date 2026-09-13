@@ -151,7 +151,10 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative flex items-center justify-center bg-primary px-4 py-4 sm:rounded-t-2xl">
+        <div className="relative flex items-center bg-primary px-5 py-4 sm:rounded-t-2xl">
+          <p className="text-2xl font-black italic tracking-tight text-white">
+            SportyBet
+          </p>
           <button
             onClick={onClose}
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
@@ -159,9 +162,6 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           >
             <X className="h-5 w-5" />
           </button>
-          <p className="text-2xl font-black italic tracking-tight text-white">
-            SportyBet
-          </p>
         </div>
 
         {/* Form */}
@@ -220,7 +220,7 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center justify-between">
             <label className="flex cursor-pointer items-center gap-2">
               <input
                 type="checkbox"
@@ -249,7 +249,7 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
           <button
             type="submit"
-            className="mt-auto w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground sm:mt-0"
+            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground"
           >
             Register
           </button>
