@@ -384,7 +384,7 @@ function LoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
             className="h-5 w-5 text-muted-foreground/70"
             aria-hidden="true"
           >
-            <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z" />
+            <path d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10Z" />
           </svg>
           <p>Powered by Spotybet @2026</p>
         </div>
