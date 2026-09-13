@@ -138,8 +138,18 @@ function SignUpModal({ open, onClose }: { open: boolean; onClose: () => void }) 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center bg-black/80 backdrop-blur-sm sm:items-center">
-      <div className="relative flex h-full w-full flex-col bg-background sm:h-auto sm:max-w-md sm:rounded-2xl sm:border sm:border-border sm:shadow-2xl">
+    <div
+      className="fixed inset-0 z-[100] flex items-start justify-center bg-black/80 backdrop-blur-sm sm:items-center"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="relative flex h-full w-full flex-col bg-background sm:h-auto sm:max-w-md sm:rounded-2xl sm:border sm:border-border sm:shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Sign up"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="relative flex items-center justify-center bg-primary px-4 py-4 sm:rounded-t-2xl">
           <button
