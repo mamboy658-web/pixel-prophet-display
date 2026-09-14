@@ -532,7 +532,7 @@ const allInvestmentPackages = [
     days: "80",
     profit: "$ 20.00",
     stock: "1,000,000",
-    imageClass: "w-[270px] max-w-none",
+    imageClass: "w-[168px] max-w-none",
   },
   {
     name: "Sporty Speed",
@@ -542,7 +542,7 @@ const allInvestmentPackages = [
     days: "45",
     profit: "$ 47.25",
     stock: "500,000",
-    imageClass: "-translate-y-[90px] w-[270px] max-w-none",
+    imageClass: "-translate-y-[106px] w-[168px] max-w-none",
   },
   {
     name: "Sporty Glide",
@@ -552,7 +552,7 @@ const allInvestmentPackages = [
     days: "50",
     profit: "$ 3,750.00",
     stock: "50",
-    imageClass: "-translate-y-[180px] w-[270px] max-w-none",
+    imageClass: "-translate-y-[212px] w-[168px] max-w-none",
   },
 ];
 
