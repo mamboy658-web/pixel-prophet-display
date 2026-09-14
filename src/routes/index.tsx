@@ -1,33 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  Home,
-  Play,
-  LayoutGrid,
-  Globe,
-  Shield,
-  User,
-  Coins,
-  BarChart3,
-  Eye,
-  Wallet,
-  Trophy,
-  Check,
-  Bitcoin,
-  ArrowRight,
-  EyeOff,
-  X,
-  Search,
-  ChevronRight,
-  RefreshCw,
-  CircleDollarSign,
-  ReceiptText,
-  Send,
-  CalendarDays,
-  Crown,
-  Zap,
-  Star,
-} from "lucide-react";
+import { Hop as Home, Play, LayoutGrid, Globe, Shield, User, Coins, ChartBar as BarChart3, Eye, Wallet, Trophy, Check, Bitcoin, ArrowRight, EyeOff, X, Search, ChevronRight, RefreshCw, CircleDollarSign, ReceiptText, Send, CalendarDays, Crown, Zap, Star } from "lucide-react";
 import leaderboardBanner from "@/assets/leaderboard-banner.jpg";
 
 import hero from "@/assets/hero.jpg";
@@ -665,7 +638,7 @@ function LeaderboardSection() {
   const amountKey = period.toLowerCase() as "daily" | "weekly" | "monthly";
 
   return (
-    <section aria-label="Leaderboard" className="space-y-2.5 bg-surface px-3 py-3 pb-4">
+    <section aria-label="Leaderboard" className="space-y-2.5 bg-surface px-3 py-3 pb-[132px]">
       <img
         src={leaderboardBanner}
         alt="Top 10 people leaderboard"
@@ -772,7 +745,7 @@ function InvestmentHome() {
 
 
   return (
-    <div className="min-h-screen bg-surface pb-20 text-foreground">
+    <div className="min-h-screen bg-surface pb-[80px] text-foreground">
       <div className="mx-auto min-h-screen w-full max-w-[390px] bg-surface shadow-2xl">
         <header className="sticky top-0 z-40 flex h-[50px] items-center justify-between bg-primary px-3">
           <div className="flex items-center gap-1.5">
@@ -800,7 +773,7 @@ function InvestmentHome() {
           {view === "leaderboard" ? (
             <LeaderboardSection />
           ) : showAllInvestments ? (
-            <section aria-label="All investment packages" className="space-y-2.5 bg-surface px-3 py-3 pb-4">
+            <section aria-label="All investment packages" className="space-y-2.5 bg-surface px-3 py-3 pb-[132px]">
               {allInvestmentPackages.map((item, index) => (
                 <InvestmentCard key={`${item.name}-${index}`} item={item} />
               ))}
