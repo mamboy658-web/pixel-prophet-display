@@ -870,26 +870,30 @@ function InvestmentHome() {
         </div>
 
         <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto grid h-[58px] max-w-[390px] grid-cols-6 border-t border-border bg-surface px-1">
-          {navItems.map((item) => (
+          {navItems.map((item) => {
+            const active =
+              (item.label === "Home" && view === "home") ||
+              (item.label === "Invest" && view === "invest") ||
+              (item.label === "Leaderboard" && view === "leaderboard");
+            return (
             <button
               key={item.label}
               type="button"
               onClick={() => {
-                if (item.label === "Invest") {
-                  setShowAllInvestments(true);
-                  window.scrollTo(0, 0);
-                } else if (item.label === "Home") {
-                  setShowAllInvestments(false);
-                  window.scrollTo(0, 0);
-                }
+                if (item.label === "Invest") setView("invest");
+                else if (item.label === "Home") setView("home");
+                else if (item.label === "Leaderboard") setView("leaderboard");
+                window.scrollTo(0, 0);
               }}
               className="relative flex flex-col items-center justify-center gap-1"
             >
-              <item.icon className={`h-5 w-5 ${item.active ? "fill-foreground" : item.label === "Leaderboard" ? "text-gold" : "text-foreground"}`} strokeWidth={2.5} />
+              <item.icon className={`h-5 w-5 ${item.label === "Leaderboard" ? "text-gold" : active ? "fill-foreground" : "text-foreground"}`} strokeWidth={2.5} />
               {item.dot && <span className="absolute right-[25%] top-2 h-2.5 w-2.5 rounded-full bg-primary" />}
-              <span className="text-[8px] font-medium">{item.label}</span>
+              <span className={`text-[8px] font-medium ${item.label === "Leaderboard" && active ? "text-gold" : ""}`}>{item.label}</span>
             </button>
-          ))}
+            );
+          })}
+
         </nav>
       </div>
     </div>
