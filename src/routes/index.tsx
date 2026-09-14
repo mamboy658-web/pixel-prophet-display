@@ -34,6 +34,9 @@ import sportyHeroAsset from "@/assets/sporty-hero-package.jpg.asset.json";
 import sportyJetAsset from "@/assets/sporty-jet-package.jpg.asset.json";
 import sportyDrive from "@/assets/sporty-drive-package.jpg";
 import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
+import sportyKickCarsAsset from "@/assets/sporty-packages-kick-cars.jpg.asset.json";
+import sportyStrikerGlideSoccerAsset from "@/assets/sporty-packages-striker-glide-soccer.jpg.asset.json";
+import sportyWomanSpeedGliderAsset from "@/assets/sporty-packages-woman-speed-glider.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -497,6 +500,7 @@ function PackageArtwork({
 }
 
 function InvestmentHome() {
+  const [showAllInvestments, setShowAllInvestments] = useState(false);
   const navItems = [
     { icon: Home, label: "Home", active: true },
     { icon: CircleDollarSign, label: "Invest" },
@@ -532,6 +536,24 @@ function InvestmentHome() {
         </header>
 
         <main>
+          {showAllInvestments ? (
+            <section aria-label="All investment packages" className="space-y-2 px-1 py-2 pb-4">
+              {[sportyKickCarsAsset, sportyStrikerGlideSoccerAsset, sportyWomanSpeedGliderAsset].map(
+                (asset, index) => (
+                  <img
+                    key={asset.asset_id}
+                    src={asset.url}
+                    alt={`SportyBet investment packages ${index + 1}`}
+                    loading="eager"
+                    width={index === 0 ? 360 : 513}
+                    height={index === 0 ? 437 : index === 1 ? 1024 : 720}
+                    className="block h-auto w-full"
+                  />
+                ),
+              )}
+            </section>
+          ) : (
+            <>
           <section className="relative h-[130px] overflow-hidden">
             <img
               src={investmentHomeHero}
@@ -567,7 +589,16 @@ function InvestmentHome() {
           <section className="px-3 pb-5">
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-[15px] font-bold">Investment Packages</h2>
-              <span className="flex items-center gap-1 text-[10px] font-semibold">View All <ChevronRight className="h-3.5 w-3.5" /></span>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowAllInvestments(true);
+                  window.scrollTo(0, 0);
+                }}
+                className="flex items-center gap-1 text-[10px] font-semibold"
+              >
+                View All <ChevronRight className="h-3.5 w-3.5" />
+              </button>
             </div>
             <div className="space-y-2">
               {investmentPackages.map((item) => (
@@ -599,6 +630,8 @@ function InvestmentHome() {
               ))}
             </div>
           </section>
+            </>
+          )}
         </main>
 
         <div className="fixed bottom-[62px] right-[calc(max((100vw-390px)/2,0px)+10px)] z-40 flex flex-col items-center">
@@ -611,11 +644,24 @@ function InvestmentHome() {
 
         <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto grid h-[58px] max-w-[390px] grid-cols-6 border-t border-border bg-surface px-1">
           {navItems.map((item) => (
-            <div key={item.label} className="relative flex flex-col items-center justify-center gap-1">
+            <button
+              key={item.label}
+              type="button"
+              onClick={() => {
+                if (item.label === "Invest") {
+                  setShowAllInvestments(true);
+                  window.scrollTo(0, 0);
+                } else if (item.label === "Home") {
+                  setShowAllInvestments(false);
+                  window.scrollTo(0, 0);
+                }
+              }}
+              className="relative flex flex-col items-center justify-center gap-1"
+            >
               <item.icon className={`h-5 w-5 ${item.active ? "fill-foreground" : item.label === "Leaderboard" ? "text-gold" : "text-foreground"}`} strokeWidth={2.5} />
               {item.dot && <span className="absolute right-[25%] top-2 h-2.5 w-2.5 rounded-full bg-primary" />}
               <span className="text-[8px] font-medium">{item.label}</span>
-            </div>
+            </button>
           ))}
         </nav>
       </div>
