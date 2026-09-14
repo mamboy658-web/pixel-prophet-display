@@ -37,7 +37,6 @@ import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
 import sportyKickCarsAsset from "@/assets/sporty-packages-kick-cars.jpg.asset.json";
 import sportyStrikerGlideSoccerAsset from "@/assets/sporty-packages-striker-glide-soccer.jpg.asset.json";
 import sportyWomanSpeedGliderAsset from "@/assets/sporty-packages-woman-speed-glider.jpg.asset.json";
-import sportyHeroJetReferenceAsset from "@/assets/sporty-hero-jet-reference.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
