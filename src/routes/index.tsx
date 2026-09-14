@@ -23,7 +23,13 @@ import {
   CircleDollarSign,
   ReceiptText,
   Send,
+  CalendarDays,
+  Crown,
+  Zap,
+  Star,
 } from "lucide-react";
+import leaderboardBanner from "@/assets/leaderboard-banner.jpg";
+
 import hero from "@/assets/hero.jpg";
 import phoneCoins from "@/assets/phone-coins.jpg";
 import chart from "@/assets/chart.jpg";
