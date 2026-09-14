@@ -544,6 +544,7 @@ function InvestmentHome() {
                     key={asset.asset_id}
                     src={asset.url}
                     alt={`SportyBet investment packages ${index + 1}`}
+                    loading="eager"
                     width={index === 0 ? 360 : 513}
                     height={index === 0 ? 437 : index === 1 ? 1024 : 720}
                     className="block h-auto w-full"
