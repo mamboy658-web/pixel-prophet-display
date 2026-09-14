@@ -624,16 +624,146 @@ function InvestmentCard({ item }: { item: (typeof allInvestmentPackages)[number]
   );
 }
 
+type LeaderPeriod = "Daily" | "Weekly" | "Monthly";
+
+const leaderboardRows = [
+  { rank: 1, id: "916482***91", tier: "VIP", daily: "489.25", weekly: "3,444.75", monthly: "4,892.75" },
+  { rank: 2, id: "927361***04", tier: "Diamond", daily: "376.12", weekly: "2,632.84", monthly: "3,761.22" },
+  { rank: 3, id: "903247***56", tier: "Platinum", daily: "298.42", weekly: "2,089.94", monthly: "2,984.17" },
+  { rank: 4, id: "918540***33", tier: "Gold", daily: "263.15", weekly: "1,841.05", monthly: "2,631.48" },
+  { rank: 5, id: "936217***71", tier: "Silver", daily: "228.79", weekly: "1,600.53", monthly: "2,287.90" },
+  { rank: 6, id: "947832***12", tier: "Silver", daily: "190.44", weekly: "1,333.06", monthly: "1,904.36" },
+  { rank: 7, id: "972614***88", tier: "Silver", daily: "156.28", weekly: "1,096.28", monthly: "1,562.75" },
+  { rank: 8, id: "901753***45", tier: "Bronze", daily: "123.88", weekly: "863.62", monthly: "1,238.60" },
+  { rank: 9, id: "958642***73", tier: "Bronze", daily: "98.75", weekly: "691.26", monthly: "987.45" },
+  { rank: 10, id: "982736***28", tier: "Bronze", daily: "76.13", weekly: "533.91", monthly: "761.32" },
+] as const;
+
+const tierStyles: Record<string, string> = {
+  VIP: "border-gold/60 text-gold",
+  Diamond: "border-chart-3/60 text-chart-3",
+  Platinum: "border-chart-4/60 text-chart-4",
+  Gold: "border-gold/60 text-gold",
+  Silver: "border-muted-foreground/60 text-muted-foreground",
+  Bronze: "border-chart-1/60 text-chart-1",
+};
+
+const rewardCopy: Record<LeaderPeriod, { title: string; sub: string }> = {
+  Daily: { title: "Daily Rewards", sub: "Smaller rewards. Keep the momentum!" },
+  Weekly: { title: "Weekly Rewards", sub: "More activity. Bigger results." },
+  Monthly: { title: "Monthly Rewards", sub: "Full monthly earnings." },
+};
+
+function LeaderboardSection() {
+  const [period, setPeriod] = useState<LeaderPeriod>("Daily");
+  const amountKey = period.toLowerCase() as "daily" | "weekly" | "monthly";
+
+  return (
+    <section aria-label="Leaderboard" className="space-y-2.5 bg-surface px-3 py-3 pb-4">
+      <img
+        src={leaderboardBanner}
+        alt="Top 10 people leaderboard"
+        width={1280}
+        height={512}
+        loading="eager"
+        className="w-full rounded-lg border border-primary/40"
+      />
+
+      <div
+        role="tablist"
+        aria-label="Leaderboard period"
+        className="grid grid-cols-3 gap-1 rounded-full border border-primary/40 bg-background p-1"
+      >
+        {(["Daily", "Weekly", "Monthly"] as LeaderPeriod[]).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            role="tab"
+            aria-selected={period === tab}
+            onClick={() => setPeriod(tab)}
+            className={`flex h-9 items-center justify-center gap-1.5 rounded-full text-[12px] font-bold transition-colors ${
+              period === tab ? "bg-primary text-primary-foreground" : "text-foreground"
+            }`}
+          >
+            <CalendarDays className="h-3.5 w-3.5" />
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex items-center gap-2 rounded-lg border border-gold/50 bg-background px-3 py-2">
+        <Crown className="h-6 w-6 text-gold" fill="currentColor" />
+        <div className="min-w-0 flex-1">
+          <p className="text-[13px] font-bold leading-tight">{rewardCopy[period].title}</p>
+          <p className="text-[10px] font-medium leading-tight text-success">{rewardCopy[period].sub}</p>
+        </div>
+        <Zap className="h-5 w-5 text-primary" fill="currentColor" />
+      </div>
+
+      <div className="space-y-1.5">
+        {leaderboardRows.map((row) => (
+          <div
+            key={row.rank}
+            className={`flex items-center gap-2 rounded-lg border bg-background px-2 py-1.5 ${
+              row.rank === 1
+                ? "border-gold/60"
+                : row.rank === 2
+                  ? "border-chart-3/60"
+                  : row.rank === 3
+                    ? "border-chart-4/60"
+                    : "border-primary/30"
+            }`}
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-[13px] font-bold">
+              {row.rank}
+            </span>
+            <Trophy
+              className={`h-6 w-6 shrink-0 ${
+                row.rank === 1
+                  ? "text-gold"
+                  : row.rank === 2
+                    ? "text-chart-3"
+                    : row.rank === 3
+                      ? "text-chart-4"
+                      : row.rank <= 7
+                        ? "text-muted-foreground"
+                        : "text-chart-1"
+              }`}
+              fill="currentColor"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[11px] font-semibold">ID: {row.id}</p>
+              <span
+                className={`mt-0.5 inline-flex items-center gap-1 rounded-md border bg-surface px-1.5 py-0.5 text-[9px] font-semibold ${tierStyles[row.tier]}`}
+              >
+                <Star className="h-2.5 w-2.5" fill="currentColor" />
+                {row.tier}
+              </span>
+            </div>
+            <div className="text-right">
+              <p className="text-[9px] font-semibold text-chart-3">{period} earnings</p>
+              <p className="text-[13px] font-bold text-success">$ {row[amountKey]}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function InvestmentHome() {
-  const [showAllInvestments, setShowAllInvestments] = useState(false);
+  const [view, setView] = useState<"home" | "invest" | "leaderboard">("home");
+  const showAllInvestments = view === "invest";
+  const setShowAllInvestments = (v: boolean) => setView(v ? "invest" : "home");
   const navItems = [
-    { icon: Home, label: "Home", active: true },
+    { icon: Home, label: "Home" },
     { icon: CircleDollarSign, label: "Invest" },
     { icon: RefreshCw, label: "Swap" },
     { icon: Trophy, label: "Leaderboard" },
     { icon: ReceiptText, label: "Income" },
     { icon: User, label: "Me", dot: true },
   ];
+
 
   return (
     <div className="min-h-screen bg-surface pb-20 text-foreground">
