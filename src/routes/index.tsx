@@ -30,8 +30,8 @@ import chart from "@/assets/chart.jpg";
 import coin from "@/assets/coin.png";
 import logoAsset from "@/assets/logo.jpg.asset.json";
 import investmentHomeHero from "@/assets/investment-home-hero.jpg";
-import sportyHero from "@/assets/sporty-hero-package.jpg";
-import sportyJet from "@/assets/sporty-jet-package.jpg";
+import sportyHeroAsset from "@/assets/sporty-hero-package.jpg.asset.json";
+import sportyJetAsset from "@/assets/sporty-jet-package.jpg.asset.json";
 import sportyDrive from "@/assets/sporty-drive-package.jpg";
 import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
 
@@ -429,7 +429,7 @@ function LoginModal({
 const investmentPackages = [
   {
     name: "Sporty Hero",
-    image: sportyHero,
+    image: sportyHeroAsset.url,
     price: "$ 1.00",
     daily: "5%",
     days: "40",
@@ -439,7 +439,7 @@ const investmentPackages = [
   },
   {
     name: "Sporty Jet",
-    image: sportyJet,
+    image: sportyJetAsset.url,
     price: "$ 5.00",
     daily: "5%",
     days: "50",
