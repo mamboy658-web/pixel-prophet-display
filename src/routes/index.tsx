@@ -37,7 +37,6 @@ import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
 import sportyKickCarsAsset from "@/assets/sporty-packages-kick-cars.jpg.asset.json";
 import sportyStrikerGlideSoccerAsset from "@/assets/sporty-packages-striker-glide-soccer.jpg.asset.json";
 import sportyWomanSpeedGliderAsset from "@/assets/sporty-packages-woman-speed-glider.jpg.asset.json";
-import sportyHeroJetReferenceAsset from "@/assets/sporty-hero-jet-reference.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -473,6 +472,90 @@ const investmentPackages = [
   },
 ];
 
+const allInvestmentPackages = [
+  ...investmentPackages,
+  {
+    name: "Sporty Kick",
+    image: sportyKickCarsAsset.url,
+    price: "$ 1.00",
+    daily: "5%",
+    days: "50",
+    profit: "$ 2.50",
+    stock: "2,000,000",
+    imageClass: "w-[180px] max-w-none",
+  },
+  {
+    name: "Sporty Cars",
+    image: sportyKickCarsAsset.url,
+    price: "$ 5.00",
+    daily: "5%",
+    days: "50",
+    profit: "$ 12.50",
+    stock: "1,000,000",
+    imageClass: "-translate-y-[109px] w-[180px] max-w-none",
+  },
+  {
+    name: "Sporty Striker",
+    image: sportyStrikerGlideSoccerAsset.url,
+    price: "$ 5.00",
+    daily: "5.5%",
+    days: "50",
+    profit: "$ 13.75",
+    stock: "1,000,000",
+    imageClass: "w-[180px] max-w-none",
+  },
+  {
+    name: "Sporty Glide",
+    image: sportyStrikerGlideSoccerAsset.url,
+    price: "$ 45.00",
+    daily: "10%",
+    days: "30",
+    profit: "$ 135.00",
+    stock: "50,000",
+    imageClass: "-translate-y-[120px] w-[180px] max-w-none",
+  },
+  {
+    name: "Sporty Soccer",
+    image: sportyStrikerGlideSoccerAsset.url,
+    price: "$ 1,500.00",
+    daily: "20%",
+    days: "40",
+    profit: "$ 15,000.00",
+    stock: "10",
+    imageClass: "-translate-y-[240px] w-[180px] max-w-none",
+  },
+  {
+    name: "Sporty Woman",
+    image: sportyWomanSpeedGliderAsset.url,
+    price: "$ 5.00",
+    daily: "5%",
+    days: "80",
+    profit: "$ 20.00",
+    stock: "1,000,000",
+    imageClass: "w-[270px] max-w-none",
+  },
+  {
+    name: "Sporty Speed",
+    image: sportyWomanSpeedGliderAsset.url,
+    price: "$ 15.00",
+    daily: "7%",
+    days: "45",
+    profit: "$ 47.25",
+    stock: "500,000",
+    imageClass: "-translate-y-[90px] w-[270px] max-w-none",
+  },
+  {
+    name: "Sporty Glide",
+    image: sportyWomanSpeedGliderAsset.url,
+    price: "$ 500.00",
+    daily: "15%",
+    days: "50",
+    profit: "$ 3,750.00",
+    stock: "50",
+    imageClass: "-translate-y-[180px] w-[270px] max-w-none",
+  },
+];
+
 function PackageArtwork({
   image,
   label,
@@ -497,6 +580,47 @@ function PackageArtwork({
         {label}
       </p>
     </div>
+  );
+}
+
+function InvestmentCard({ item }: { item: (typeof allInvestmentPackages)[number] }) {
+  const isComposite = "imageClass" in item;
+
+  return (
+    <article className="grid h-[104px] grid-cols-[90px_minmax(0,1fr)_82px] items-center gap-2 rounded-lg border border-primary/35 bg-surface p-1.5 shadow-[0_0_12px_color-mix(in_oklab,var(--primary)_12%,transparent)]">
+      <div className="relative h-[90px] overflow-hidden rounded-md bg-background">
+        {isComposite ? (
+          <img
+            src={item.image}
+            alt={item.name}
+            loading="lazy"
+            className={`absolute left-0 top-0 h-auto ${item.imageClass}`}
+          />
+        ) : (
+          <PackageArtwork image={item.image} label={item.label} />
+        )}
+      </div>
+      <div className="min-w-0 self-stretch py-1">
+        <h3 className="mb-1 truncate text-[11px] font-bold leading-none">{item.name}</h3>
+        {[
+          ["Price", item.price],
+          ["Daily profit", item.daily],
+          ["Days", item.days],
+          ["Total profit", item.profit],
+          ["Total stock", item.stock],
+        ].map(([label, value]) => (
+          <div key={label} className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[9px] leading-[1.15] last:border-0">
+            <span className="text-muted-foreground">{label}</span>
+            <span className="font-semibold">{value}</span>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center justify-end">
+        <span className="inline-flex h-9 min-w-[80px] items-center justify-center rounded-full bg-success px-2 text-[10px] font-bold text-success-foreground">
+          Invest Now
+        </span>
+      </div>
+    </article>
   );
 }
 
@@ -538,20 +662,10 @@ function InvestmentHome() {
 
         <main>
           {showAllInvestments ? (
-            <section aria-label="All investment packages" className="space-y-2 bg-surface px-1 py-2 pb-4">
-              {[sportyHeroJetReferenceAsset, sportyKickCarsAsset, sportyStrikerGlideSoccerAsset, sportyWomanSpeedGliderAsset].map(
-                (asset, index) => (
-                  <img
-                    key={asset.asset_id}
-                    src={asset.url}
-                    alt={`SportyBet investment packages ${index + 1}`}
-                    loading="eager"
-                    width={index < 2 ? 720 : 513}
-                    height={index === 0 ? 420 : index === 1 ? 874 : index === 2 ? 1024 : 720}
-                    className="block h-auto w-full"
-                  />
-                ),
-              )}
+            <section aria-label="All investment packages" className="space-y-2.5 bg-surface px-3 py-3 pb-4">
+              {allInvestmentPackages.map((item, index) => (
+                <InvestmentCard key={`${item.name}-${index}`} item={item} />
+              ))}
             </section>
           ) : (
             <>
@@ -603,31 +717,7 @@ function InvestmentHome() {
             </div>
             <div className="space-y-2.5">
               {investmentPackages.map((item) => (
-                <article key={item.name} className="grid h-[104px] grid-cols-[90px_minmax(0,1fr)_82px] items-center gap-2.5 rounded-lg border border-border bg-surface p-1.5">
-                  <div className="h-[90px] overflow-hidden rounded-md">
-                    <PackageArtwork image={item.image} label={item.label} />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="mb-1.5 truncate text-xs font-bold leading-none">{item.name}</h3>
-                    {[
-                      ["Price", item.price],
-                      ["Daily profit", item.daily],
-                      ["Days", item.days],
-                      ["Total profit", item.profit],
-                      ["Total stock", item.stock],
-                    ].map(([label, value]) => (
-                      <div key={label} className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[9px] leading-[1.15] last:border-0">
-                        <span className="text-muted-foreground">{label}</span>
-                        <span className="font-semibold">{value}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="inline-flex h-9 min-w-[80px] items-center justify-center rounded-full bg-success px-2 text-[10px] font-bold text-success-foreground">
-                      Invest Now
-                    </span>
-                  </div>
-                </article>
+                <InvestmentCard key={item.name} item={item} />
               ))}
             </div>
           </section>
