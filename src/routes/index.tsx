@@ -37,6 +37,7 @@ import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
 import sportyKickCarsAsset from "@/assets/sporty-packages-kick-cars.jpg.asset.json";
 import sportyStrikerGlideSoccerAsset from "@/assets/sporty-packages-striker-glide-soccer.jpg.asset.json";
 import sportyWomanSpeedGliderAsset from "@/assets/sporty-packages-woman-speed-glider.jpg.asset.json";
+import sportyHeroJetReferenceAsset from "@/assets/sporty-hero-jet-reference.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -537,16 +538,16 @@ function InvestmentHome() {
 
         <main>
           {showAllInvestments ? (
-            <section aria-label="All investment packages" className="space-y-2 px-1 py-2 pb-4">
-              {[sportyKickCarsAsset, sportyStrikerGlideSoccerAsset, sportyWomanSpeedGliderAsset].map(
+            <section aria-label="All investment packages" className="space-y-2 bg-surface px-1 py-2 pb-4">
+              {[sportyHeroJetReferenceAsset, sportyKickCarsAsset, sportyStrikerGlideSoccerAsset, sportyWomanSpeedGliderAsset].map(
                 (asset, index) => (
                   <img
                     key={asset.asset_id}
                     src={asset.url}
                     alt={`SportyBet investment packages ${index + 1}`}
                     loading="eager"
-                    width={index === 0 ? 360 : 513}
-                    height={index === 0 ? 437 : index === 1 ? 1024 : 720}
+                    width={index < 2 ? 720 : 513}
+                    height={index === 0 ? 420 : index === 1 ? 874 : index === 2 ? 1024 : 720}
                     className="block h-auto w-full"
                   />
                 ),
@@ -600,14 +601,14 @@ function InvestmentHome() {
                 View All <ChevronRight className="h-3.5 w-3.5" />
               </button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               {investmentPackages.map((item) => (
-                <article key={item.name} className="grid h-[96px] grid-cols-[82px_1fr_78px] gap-3 rounded-md border border-border p-1.5">
-                  <div className="h-[82px] overflow-hidden rounded-md">
+                <article key={item.name} className="grid h-[104px] grid-cols-[90px_minmax(0,1fr)_82px] items-center gap-2.5 rounded-lg border border-border bg-surface p-1.5">
+                  <div className="h-[90px] overflow-hidden rounded-md">
                     <PackageArtwork image={item.image} label={item.label} />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="mb-1 text-[11px] font-bold">{item.name}</h3>
+                    <h3 className="mb-1.5 truncate text-xs font-bold leading-none">{item.name}</h3>
                     {[
                       ["Price", item.price],
                       ["Daily profit", item.daily],
@@ -615,14 +616,14 @@ function InvestmentHome() {
                       ["Total profit", item.profit],
                       ["Total stock", item.stock],
                     ].map(([label, value]) => (
-                      <div key={label} className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[8px] leading-[1.15] last:border-0">
+                      <div key={label} className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[9px] leading-[1.15] last:border-0">
                         <span className="text-muted-foreground">{label}</span>
                         <span className="font-semibold">{value}</span>
                       </div>
                     ))}
                   </div>
                   <div className="flex items-center justify-end">
-                    <span className="inline-flex h-8 min-w-[76px] items-center justify-center rounded-full bg-success px-2 text-[9px] font-semibold text-success-foreground">
+                    <span className="inline-flex h-9 min-w-[80px] items-center justify-center rounded-full bg-success px-2 text-[10px] font-bold text-success-foreground">
                       Invest Now
                     </span>
                   </div>
