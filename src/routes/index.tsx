@@ -797,7 +797,9 @@ function InvestmentHome() {
         </header>
 
         <main>
-          {showAllInvestments ? (
+          {view === "leaderboard" ? (
+            <LeaderboardSection />
+          ) : showAllInvestments ? (
             <section aria-label="All investment packages" className="space-y-2.5 bg-surface px-3 py-3 pb-4">
               {allInvestmentPackages.map((item, index) => (
                 <InvestmentCard key={`${item.name}-${index}`} item={item} />
