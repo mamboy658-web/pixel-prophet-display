@@ -65,6 +65,39 @@ export type Database = {
         }
         Relationships: []
       }
+      leaderboard_entries: {
+        Row: {
+          created_at: string
+          daily_earnings: number
+          id: string
+          monthly_earnings: number
+          rank: number
+          tier: string
+          user_identifier: string
+          weekly_earnings: number
+        }
+        Insert: {
+          created_at?: string
+          daily_earnings: number
+          id?: string
+          monthly_earnings: number
+          rank: number
+          tier: string
+          user_identifier: string
+          weekly_earnings: number
+        }
+        Update: {
+          created_at?: string
+          daily_earnings?: number
+          id?: string
+          monthly_earnings?: number
+          rank?: number
+          tier?: string
+          user_identifier?: string
+          weekly_earnings?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
