@@ -1,6 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Play, LayoutGrid, Globe, Shield, User, Coins, BarChart3, Eye, Wallet, Trophy, Check, Bitcoin, ArrowRight, EyeOff, X, Search, ChevronRight, RefreshCw, CircleDollarSign, ReceiptText, Send, CalendarDays, Crown, Zap, Star } from "lucide-react";
+import {
+  Home,
+  Play,
+  LayoutGrid,
+  Globe,
+  Shield,
+  User,
+  Coins,
+  BarChart3,
+  Eye,
+  Wallet,
+  Trophy,
+  Check,
+  Bitcoin,
+  ArrowRight,
+  EyeOff,
+  X,
+  Search,
+  ChevronRight,
+  RefreshCw,
+  CircleDollarSign,
+  ReceiptText,
+  Send,
+  CalendarDays,
+  Crown,
+  Zap,
+  Star,
+} from "lucide-react";
 import leaderboardBanner from "@/assets/leaderboard-banner.jpg";
 
 import hero from "@/assets/hero.jpg";
@@ -78,7 +105,10 @@ const countries: [string, string][] = [
   ["linear-gradient(90deg,#008751 33%,#fff 33%,#fff 66%,#008751 66%)", "Nigeria"],
   ["linear-gradient(180deg,#ce1126 33%,#fcd116 33%,#fcd116 66%,#006b3f 66%)", "Ghana"],
   ["linear-gradient(180deg,#000 30%,#bb1e10 30%,#bb1e10 70%,#006600 70%)", "Kenya"],
-  ["linear-gradient(180deg,#e03c31 25%,#007749 25%,#007749 50%,#001489 50%,#001489 75%,#ffb81c 75%)", "South Africa"],
+  [
+    "linear-gradient(180deg,#e03c31 25%,#007749 25%,#007749 50%,#001489 50%,#001489 75%,#ffb81c 75%)",
+    "South Africa",
+  ],
   ["linear-gradient(180deg,#000 33%,#fcdc04 33%,#fcdc04 66%,#d90000 66%)", "Uganda"],
   ["linear-gradient(180deg,#198a00 70%,#ef7d00 70%,#ef7d00 85%,#000 85%)", "Zambia"],
   ["linear-gradient(135deg,#1eb53a 40%,#fcd116 45%,#000 50%,#fcd116 55%,#00a3dd 60%)", "Tanzania"],
@@ -111,12 +141,8 @@ function Logo() {
         className="h-9 w-9 rounded-lg object-cover shadow-[var(--glow-red)]"
       />
       <div className="leading-none">
-        <p className="text-lg font-black italic tracking-tight text-foreground">
-          SPORTYBET
-        </p>
-        <p className="text-[10px] font-bold tracking-[0.2em] text-primary">
-          STOCK MARKET
-        </p>
+        <p className="text-lg font-black italic tracking-tight text-foreground">SPORTYBET</p>
+        <p className="text-[10px] font-bold tracking-[0.2em] text-primary">STOCK MARKET</p>
       </div>
     </div>
   );
@@ -153,9 +179,7 @@ function SignUpModal({
       >
         {/* Header */}
         <div className="relative flex items-center bg-primary px-5 py-4 sm:rounded-t-2xl">
-          <p className="text-2xl font-black italic tracking-tight text-white">
-            SportyBet
-          </p>
+          <p className="text-2xl font-black italic tracking-tight text-white">SportyBet</p>
           <button
             onClick={onClose}
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
@@ -196,11 +220,7 @@ function SignUpModal({
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? (
-                  <Eye className="h-5 w-5" />
-                ) : (
-                  <EyeOff className="h-5 w-5" />
-                )}
+                {showPassword ? <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
               </button>
             </div>
             <div className="relative">
@@ -215,11 +235,7 @@ function SignUpModal({
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 aria-label={showConfirm ? "Hide confirm password" : "Show confirm password"}
               >
-                {showConfirm ? (
-                  <Eye className="h-5 w-5" />
-                ) : (
-                  <EyeOff className="h-5 w-5" />
-                )}
+                {showConfirm ? <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -293,9 +309,7 @@ function LoginModal({
       >
         {/* Header */}
         <div className="relative flex items-center bg-primary px-5 py-4 sm:rounded-t-2xl">
-          <p className="text-2xl font-black italic tracking-tight text-white">
-            SportyBet
-          </p>
+          <p className="text-2xl font-black italic tracking-tight text-white">SportyBet</p>
           <button
             onClick={onClose}
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
@@ -331,11 +345,7 @@ function LoginModal({
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? (
-                  <Eye className="h-5 w-5" />
-                ) : (
-                  <EyeOff className="h-5 w-5" />
-                )}
+                {showPassword ? <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -588,7 +598,10 @@ function InvestmentCard({ item }: { item: (typeof allInvestmentPackages)[number]
           ["Total profit", item.profit],
           ["Total stock", item.stock],
         ].map(([label, value]) => (
-          <div key={label} className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[9px] leading-[1.15] last:border-0">
+          <div
+            key={label}
+            className="flex items-center justify-between gap-1 border-b border-border/60 py-px text-[9px] leading-[1.15] last:border-0"
+          >
             <span className="text-muted-foreground">{label}</span>
             <span className="font-semibold">{value}</span>
           </div>
@@ -606,16 +619,86 @@ function InvestmentCard({ item }: { item: (typeof allInvestmentPackages)[number]
 type LeaderPeriod = "Daily" | "Weekly" | "Monthly";
 
 const leaderboardRows = [
-  { rank: 1, id: "916482***91", tier: "VIP", daily: "489.25", weekly: "3,444.75", monthly: "4,892.75" },
-  { rank: 2, id: "927361***04", tier: "Diamond", daily: "376.12", weekly: "2,632.84", monthly: "3,761.22" },
-  { rank: 3, id: "903247***56", tier: "Platinum", daily: "298.42", weekly: "2,089.94", monthly: "2,984.17" },
-  { rank: 4, id: "918540***33", tier: "Gold", daily: "263.15", weekly: "1,841.05", monthly: "2,631.48" },
-  { rank: 5, id: "936217***71", tier: "Silver", daily: "228.79", weekly: "1,600.53", monthly: "2,287.90" },
-  { rank: 6, id: "947832***12", tier: "Silver", daily: "190.44", weekly: "1,333.06", monthly: "1,904.36" },
-  { rank: 7, id: "972614***88", tier: "Silver", daily: "156.28", weekly: "1,096.28", monthly: "1,562.75" },
-  { rank: 8, id: "901753***45", tier: "Bronze", daily: "123.88", weekly: "863.62", monthly: "1,238.60" },
-  { rank: 9, id: "958642***73", tier: "Bronze", daily: "98.75", weekly: "691.26", monthly: "987.45" },
-  { rank: 10, id: "982736***28", tier: "Bronze", daily: "76.13", weekly: "533.91", monthly: "761.32" },
+  {
+    rank: 1,
+    id: "916482***91",
+    tier: "VIP",
+    daily: "489.25",
+    weekly: "3,444.75",
+    monthly: "4,892.75",
+  },
+  {
+    rank: 2,
+    id: "927361***04",
+    tier: "Diamond",
+    daily: "376.12",
+    weekly: "2,632.84",
+    monthly: "3,761.22",
+  },
+  {
+    rank: 3,
+    id: "903247***56",
+    tier: "Platinum",
+    daily: "298.42",
+    weekly: "2,089.94",
+    monthly: "2,984.17",
+  },
+  {
+    rank: 4,
+    id: "918540***33",
+    tier: "Gold",
+    daily: "263.15",
+    weekly: "1,841.05",
+    monthly: "2,631.48",
+  },
+  {
+    rank: 5,
+    id: "936217***71",
+    tier: "Silver",
+    daily: "228.79",
+    weekly: "1,600.53",
+    monthly: "2,287.90",
+  },
+  {
+    rank: 6,
+    id: "947832***12",
+    tier: "Silver",
+    daily: "190.44",
+    weekly: "1,333.06",
+    monthly: "1,904.36",
+  },
+  {
+    rank: 7,
+    id: "972614***88",
+    tier: "Silver",
+    daily: "156.28",
+    weekly: "1,096.28",
+    monthly: "1,562.75",
+  },
+  {
+    rank: 8,
+    id: "901753***45",
+    tier: "Bronze",
+    daily: "123.88",
+    weekly: "863.62",
+    monthly: "1,238.60",
+  },
+  {
+    rank: 9,
+    id: "958642***73",
+    tier: "Bronze",
+    daily: "98.75",
+    weekly: "691.26",
+    monthly: "987.45",
+  },
+  {
+    rank: 10,
+    id: "982736***28",
+    tier: "Bronze",
+    daily: "76.13",
+    weekly: "533.91",
+    monthly: "761.32",
+  },
 ] as const;
 
 const tierStyles: Record<string, string> = {
@@ -674,7 +757,9 @@ function LeaderboardSection() {
         <Crown className="h-6 w-6 text-gold" fill="currentColor" />
         <div className="min-w-0 flex-1">
           <p className="text-[13px] font-bold leading-tight">{rewardCopy[period].title}</p>
-          <p className="text-[10px] font-medium leading-tight text-success">{rewardCopy[period].sub}</p>
+          <p className="text-[10px] font-medium leading-tight text-success">
+            {rewardCopy[period].sub}
+          </p>
         </div>
         <Zap className="h-5 w-5 text-primary" fill="currentColor" />
       </div>
@@ -743,7 +828,6 @@ function InvestmentHome() {
     { icon: User, label: "Me", dot: true },
   ];
 
-
   return (
     <div className="min-h-screen bg-surface pb-[80px] text-foreground">
       <div className="mx-auto min-h-screen w-full max-w-[390px] bg-surface shadow-2xl">
@@ -763,7 +847,9 @@ function InvestmentHome() {
           <div className="flex items-center gap-2.5">
             <Search className="h-5 w-5 text-primary-foreground" strokeWidth={3} />
             <div className="flex h-8 items-center gap-1.5 rounded-full border border-primary-foreground px-2 text-[11px] font-semibold text-primary-foreground">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-sm font-black">$</span>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-sm font-black">
+                $
+              </span>
               USD 0.36
             </div>
           </div>
@@ -773,65 +859,73 @@ function InvestmentHome() {
           {view === "leaderboard" ? (
             <LeaderboardSection />
           ) : showAllInvestments ? (
-            <section aria-label="All investment packages" className="space-y-2.5 bg-surface px-3 py-3 pb-[132px]">
+            <section
+              aria-label="All investment packages"
+              className="space-y-2.5 bg-surface px-3 py-3 pb-[132px]"
+            >
               {allInvestmentPackages.map((item, index) => (
                 <InvestmentCard key={`${item.name}-${index}`} item={item} />
               ))}
             </section>
           ) : (
             <>
-          <section className="relative h-[130px] overflow-hidden">
-            <img
-              src={investmentHomeHero}
-              alt="Football player holding a flaming ball"
-              width={1440}
-              height={600}
-              className="absolute inset-0 h-full w-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/70 to-transparent" />
-            <div className="relative z-10 px-3 pt-3.5">
-              <h1 className="text-[16px] font-extrabold leading-tight">
-                <span className="text-primary">Invest</span> in your future.
-              </h1>
-              <p className="mt-1 max-w-[180px] text-[10px] font-medium leading-snug">
-                Start building your future now<br />with Spotty Bets stock investments.
-              </p>
-              <span className="mt-1.5 block h-0.5 w-6 bg-primary" />
-              <span className="mt-2 inline-flex h-8 items-center gap-3 rounded-full bg-primary px-4 text-xs font-bold text-primary-foreground">
-                <Wallet className="h-4 w-4 fill-current" /> Deposit
-                <ChevronRight className="h-4 w-4" />
-              </span>
-            </div>
-          </section>
+              <section className="relative h-[130px] overflow-hidden">
+                <img
+                  src={investmentHomeHero}
+                  alt="Football player holding a flaming ball"
+                  width={1440}
+                  height={600}
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/70 to-transparent" />
+                <div className="relative z-10 px-3 pt-3.5">
+                  <h1 className="text-[16px] font-extrabold leading-tight">
+                    <span className="text-primary">Invest</span> in your future.
+                  </h1>
+                  <p className="mt-1 max-w-[180px] text-[10px] font-medium leading-snug">
+                    Start building your future now
+                    <br />
+                    with Spotty Bets stock investments.
+                  </p>
+                  <span className="mt-1.5 block h-0.5 w-6 bg-primary" />
+                  <span className="mt-2 inline-flex h-8 items-center gap-3 rounded-full bg-primary px-4 text-xs font-bold text-primary-foreground">
+                    <Wallet className="h-4 w-4 fill-current" /> Deposit
+                    <ChevronRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </section>
 
-          <section className="grid grid-cols-3 gap-1.5 px-3 py-2">
-            {investmentPackages.slice(0, 3).map((item) => (
-              <div key={item.name} className="aspect-[1.42] overflow-hidden rounded-md border border-border">
-                <PackageArtwork image={item.image} label={item.label} eager />
-              </div>
-            ))}
-          </section>
+              <section className="grid grid-cols-3 gap-1.5 px-3 py-2">
+                {investmentPackages.slice(0, 3).map((item) => (
+                  <div
+                    key={item.name}
+                    className="aspect-[1.42] overflow-hidden rounded-md border border-border"
+                  >
+                    <PackageArtwork image={item.image} label={item.label} eager />
+                  </div>
+                ))}
+              </section>
 
-          <section className="px-3 pb-5">
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-[15px] font-bold">Investment Packages</h2>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowAllInvestments(true);
-                  window.scrollTo(0, 0);
-                }}
-                className="flex items-center gap-1 text-[10px] font-semibold"
-              >
-                View All <ChevronRight className="h-3.5 w-3.5" />
-              </button>
-            </div>
-            <div className="space-y-2.5">
-              {investmentPackages.map((item) => (
-                <InvestmentCard key={item.name} item={item} />
-              ))}
-            </div>
-          </section>
+              <section className="px-3 pb-5">
+                <div className="mb-2 flex items-center justify-between">
+                  <h2 className="text-[15px] font-bold">Investment Packages</h2>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAllInvestments(true);
+                      window.scrollTo(0, 0);
+                    }}
+                    className="flex items-center gap-1 text-[10px] font-semibold"
+                  >
+                    View All <ChevronRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+                <div className="space-y-2.5">
+                  {investmentPackages.map((item) => (
+                    <InvestmentCard key={item.name} item={item} />
+                  ))}
+                </div>
+              </section>
             </>
           )}
         </main>
@@ -841,7 +935,9 @@ function InvestmentHome() {
             <Send className="h-6 w-6 -rotate-12 fill-current" />
             <span className="absolute right-0 top-0 h-3 w-3 rounded-full bg-primary" />
           </span>
-          <span className="-mt-1 rounded-full bg-chart-3 px-2 py-0.5 text-[8px] text-primary-foreground">Join Channel</span>
+          <span className="-mt-1 rounded-full bg-chart-3 px-2 py-0.5 text-[8px] text-primary-foreground">
+            Join Channel
+          </span>
         </div>
 
         <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto grid h-[58px] max-w-[390px] grid-cols-6 border-t border-border bg-surface px-1">
@@ -851,24 +947,32 @@ function InvestmentHome() {
               (item.label === "Invest" && view === "invest") ||
               (item.label === "Leaderboard" && view === "leaderboard");
             return (
-            <button
-              key={item.label}
-              type="button"
-              onClick={() => {
-                if (item.label === "Invest") setView("invest");
-                else if (item.label === "Home") setView("home");
-                else if (item.label === "Leaderboard") setView("leaderboard");
-                window.scrollTo(0, 0);
-              }}
-              className="relative flex flex-col items-center justify-center gap-1"
-            >
-              <item.icon className={`h-5 w-5 ${item.label === "Leaderboard" ? "text-gold" : active ? "fill-foreground" : "text-foreground"}`} strokeWidth={2.5} />
-              {item.dot && <span className="absolute right-[25%] top-2 h-2.5 w-2.5 rounded-full bg-primary" />}
-              <span className={`text-[8px] font-medium ${item.label === "Leaderboard" && active ? "text-gold" : ""}`}>{item.label}</span>
-            </button>
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => {
+                  if (item.label === "Invest") setView("invest");
+                  else if (item.label === "Home") setView("home");
+                  else if (item.label === "Leaderboard") setView("leaderboard");
+                  window.scrollTo(0, 0);
+                }}
+                className="relative flex flex-col items-center justify-center gap-1"
+              >
+                <item.icon
+                  className={`h-5 w-5 ${item.label === "Leaderboard" ? "text-gold" : active ? "fill-foreground" : "text-foreground"}`}
+                  strokeWidth={2.5}
+                />
+                {item.dot && (
+                  <span className="absolute right-[25%] top-2 h-2.5 w-2.5 rounded-full bg-primary" />
+                )}
+                <span
+                  className={`text-[8px] font-medium ${item.label === "Leaderboard" && active ? "text-gold" : ""}`}
+                >
+                  {item.label}
+                </span>
+              </button>
             );
           })}
-
         </nav>
       </div>
     </div>
@@ -947,16 +1051,13 @@ function Index() {
               <br />
               <span className="text-primary">Real Investment.</span>
             </h1>
-            <p className="mt-4 text-xl font-bold md:text-2xl">
-              Live on SportyBet Stock Market.
-            </p>
+            <p className="mt-4 text-xl font-bold md:text-2xl">Live on SportyBet Stock Market.</p>
             <p className="mt-3 text-lg font-semibold text-muted-foreground">
               Watch. Invest. Earn. All in one app.
             </p>
             <p className="mt-2 max-w-md text-sm text-muted-foreground">
-              Turn your passion for football into real income. Invest in live
-              match opportunities and grow your wealth with Sportybet Stock
-              Market.
+              Turn your passion for football into real income. Invest in live match opportunities
+              and grow your wealth with Sportybet Stock Market.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <span className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[var(--glow-red)]">
@@ -979,13 +1080,11 @@ function Index() {
               GLOBAL <span className="text-primary">SPORTS INVESTMENT</span>
             </h2>
           </div>
-          <p className="mt-2 text-lg font-bold">
-            Invest From Anywhere. Grow With SportyBet.
-          </p>
+          <p className="mt-2 text-lg font-bold">Invest From Anywhere. Grow With SportyBet.</p>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            Join investors from different countries and be part of a global
-            community where sports, strategy and crypto meet. Invest in real
-            football markets and earn exciting returns — all on one platform.
+            Join investors from different countries and be part of a global community where sports,
+            strategy and crypto meet. Invest in real football markets and earn exciting returns —
+            all on one platform.
           </p>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_1fr_1fr]">
@@ -1041,9 +1140,7 @@ function Index() {
                 />
                 <div>
                   <p className="text-sm font-black">SPOTY COIN (SPY)</p>
-                  <p className="text-xs text-muted-foreground">
-                    Our Official Payment Token
-                  </p>
+                  <p className="text-xs text-muted-foreground">Our Official Payment Token</p>
                 </div>
               </div>
               <ul className="mt-4 space-y-2">
@@ -1079,9 +1176,7 @@ function Index() {
           <h3 className="inline-flex items-center gap-2 text-sm font-black tracking-wide">
             <BarChart3 className="h-4 w-4 text-primary" /> INVESTMENT POTENTIAL
           </h3>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Small amounts. Big possibilities.
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">Small amounts. Big possibilities.</p>
           <div className="mt-3 inline-block rounded-lg border border-success/50 bg-success/10 px-4 py-2">
             <p className="text-2xl font-black text-success">UP TO 50%</p>
             <p className="text-[11px] font-bold tracking-wide text-success">
@@ -1121,28 +1216,20 @@ function Index() {
           <p className="mt-6 text-6xl font-black text-gold drop-shadow-[0_0_25px_oklch(0.82_0.16_85/0.4)]">
             50%
           </p>
-          <p className="text-xl font-black tracking-widest text-gold">
-            CASHBACK
-          </p>
+          <p className="text-xl font-black tracking-widest text-gold">CASHBACK</p>
           <p className="mx-auto mt-5 max-w-xs text-sm text-muted-foreground">
-            At the end of each year, the highest performing investor will
-            receive 50% of their qualifying annual earnings or eligible
-            investment amount.
+            At the end of each year, the highest performing investor will receive 50% of their
+            qualifying annual earnings or eligible investment amount.
           </p>
-          <p className="mt-4 text-xs text-muted-foreground">
-            Terms &amp; conditions apply.
-          </p>
+          <p className="mt-4 text-xs text-muted-foreground">Terms &amp; conditions apply.</p>
         </div>
 
         {/* Countries */}
         <div className="rounded-2xl border border-border bg-card p-5">
           <h3 className="inline-flex items-center gap-2 text-sm font-black tracking-wide">
-            <Globe className="h-4 w-4 text-primary" /> AVAILABLE IN MULTIPLE
-            COUNTRIES
+            <Globe className="h-4 w-4 text-primary" /> AVAILABLE IN MULTIPLE COUNTRIES
           </h3>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Invest globally. Play locally.
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">Invest globally. Play locally.</p>
           <div className="mt-4 grid grid-cols-4 gap-x-2 gap-y-4">
             {countries.map(([bg, name]) => (
               <Flag key={name} bg={bg} name={name} />
@@ -1160,13 +1247,11 @@ function Index() {
           <Shield className="h-16 w-16 shrink-0 text-primary drop-shadow-[0_0_20px_oklch(0.58_0.24_27/0.6)]" />
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-black tracking-tight">
-              POWERED AND BACKED UP{" "}
-              <span className="text-primary">STRONGLY BY SPORTYBET</span>
+              POWERED AND BACKED UP <span className="text-primary">STRONGLY BY SPORTYBET</span>
             </h3>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              Your investment is secure with the trusted SportyBet platform —
-              built on a solid foundation of technology, transparency and
-              global expertise.
+              Your investment is secure with the trusted SportyBet platform — built on a solid
+              foundation of technology, transparency and global expertise.
             </p>
           </div>
           <div className="md:ml-auto">
@@ -1186,8 +1271,8 @@ function Index() {
             <div className="text-center md:text-left">
               <p className="font-bold">Ready to Start Your Investment Journey?</p>
               <p className="text-sm text-muted-foreground">
-                Join thousands of smart investors who are already growing with
-                SportyBet Stock Market.
+                Join thousands of smart investors who are already growing with SportyBet Stock
+                Market.
               </p>
             </div>
             <span className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[var(--glow-red)]">
