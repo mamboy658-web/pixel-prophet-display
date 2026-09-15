@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Hop as Home, Play, LayoutGrid, Globe, Shield, User, Coins, ChartBar as BarChart3, Eye, Wallet, Trophy, Check, Bitcoin, ArrowRight, EyeOff, X, Search, ChevronRight, RefreshCw, CircleDollarSign, ReceiptText, Send, CalendarDays, Crown, Zap, Star } from "lucide-react";
+import { Home, Play, LayoutGrid, Globe, Shield, User, Coins, BarChart3, Eye, Wallet, Trophy, Check, Bitcoin, ArrowRight, EyeOff, X, Search, ChevronRight, RefreshCw, CircleDollarSign, ReceiptText, Send, CalendarDays, Crown, Zap, Star } from "lucide-react";
 import leaderboardBanner from "@/assets/leaderboard-banner.jpg";
 
 import hero from "@/assets/hero.jpg";
