@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      investment_packages: {
+        Row: {
+          created_at: string
+          daily_profit_rate: number
+          description: string | null
+          duration_days: number
+          id: string
+          image_url: string
+          is_active: boolean
+          label: string | null
+          name: string
+          price: number
+          sort_order: number
+          total_profit: number
+          total_stock: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          daily_profit_rate: number
+          description?: string | null
+          duration_days: number
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          label?: string | null
+          name: string
+          price: number
+          sort_order?: number
+          total_profit: number
+          total_stock: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          daily_profit_rate?: number
+          description?: string | null
+          duration_days?: number
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          label?: string | null
+          name?: string
+          price?: number
+          sort_order?: number
+          total_profit?: number
+          total_stock?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
