@@ -1,0 +1,6 @@
+- [ ] Add secure Cloud schema for profiles, roles, packages, deposits, investments, payouts, and withdrawals.
+- [ ] Replace mock registration/login with real email/password authentication and Sporty ID profile setup.
+- [ ] Load package and leaderboard data from the backend without changing the existing visual design.
+- [ ] Add authenticated investment details and payment-ready Recharge flow; keep payment disabled until a provider is enabled.
+- [ ] Add protected admin dashboard and server-side package/user/withdrawal management.
+- [ ] Verify auth, protected actions, package details, and admin access in the preview.
