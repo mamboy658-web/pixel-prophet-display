@@ -298,6 +298,39 @@ export type Database = {
         }
         Relationships: []
       }
+      wallet_transactions: {
+        Row: {
+          amount: number
+          balance_after: number
+          created_at: string
+          description: string | null
+          id: string
+          reference_id: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       withdrawals: {
         Row: {
           amount: number
@@ -342,6 +375,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_is_configured_email: { Args: { p_email: string }; Returns: boolean }
+      create_investment_from_balance: {
+        Args: { p_package_id: string }
+        Returns: {
+          amount: number
+          created_at: string
+          daily_profit_rate: number
+          deposit_id: string | null
+          duration_days: number
+          ends_at: string | null
+          id: string
+          package_id: string
+          started_at: string | null
+          status: string
+          total_profit: number
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "investments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
