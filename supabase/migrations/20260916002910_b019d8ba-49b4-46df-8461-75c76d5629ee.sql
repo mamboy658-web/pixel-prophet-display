@@ -1,0 +1,9 @@
+REVOKE EXECUTE ON FUNCTION public.has_role(uuid, public.app_role) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.has_role(uuid, public.app_role) TO authenticated;
+REVOKE EXECUTE ON FUNCTION public.create_investment_from_balance(uuid) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.create_investment_from_balance(uuid) TO authenticated;
+REVOKE EXECUTE ON FUNCTION public.admin_is_configured_email(text) FROM PUBLIC, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.handle_new_user() FROM PUBLIC, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.update_updated_at_column() FROM PUBLIC, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.touch_profile_updated_at() FROM PUBLIC, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.touch_package_updated_at() FROM PUBLIC, anon, authenticated;
