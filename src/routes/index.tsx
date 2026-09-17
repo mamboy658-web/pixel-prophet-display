@@ -347,11 +347,13 @@ function LoginModal({
   onClose,
   onSuccess,
   initialEmail = "",
+  notice = "",
 }: {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
   initialEmail?: string;
+  notice?: string;
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
@@ -447,6 +449,11 @@ function LoginModal({
           {error && (
             <p role="alert" className="text-sm font-medium text-primary">
               {error}
+            </p>
+          )}
+          {notice && (
+            <p role="status" className="text-sm font-medium text-success">
+              {notice}
             </p>
           )}
 
