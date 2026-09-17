@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import {
   Home,
   Play,
@@ -171,7 +171,7 @@ function SignUpModal({
 
   if (!open) return null;
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
 
@@ -363,7 +363,7 @@ function LoginModal({
 
   if (!open) return null;
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
     setSubmitting(true);
@@ -1084,12 +1084,42 @@ function Index() {
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
+  const [authNotice, setAuthNotice] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+
+    void supabase.auth.getSession().then(({ data }) => {
+      if (mounted && data.session) setSignedIn(true);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (mounted && session) setSignedIn(true);
+      if (mounted && !session) setSignedIn(false);
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const enterHome = () => {
     setLoginOpen(false);
     setSignUpOpen(false);
+    setAuthNotice("");
     setSignedIn(true);
     window.scrollTo(0, 0);
+  };
+
+  const handleRegistered = (email: string) => {
+    setSignUpOpen(false);
+    setRegisteredEmail(email);
+    setAuthNotice("You have successfully registered.");
+    setLoginOpen(true);
   };
 
   if (signedIn) return <InvestmentHome />;
@@ -1126,8 +1156,21 @@ function Index() {
         </div>
       </header>
 
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} onSuccess={enterHome} />
-      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} onSuccess={enterHome} />
+      <LoginModal
+        open={loginOpen}
+        onClose={() => {
+          setLoginOpen(false);
+          setAuthNotice("");
+        }}
+        onSuccess={enterHome}
+        initialEmail={registeredEmail}
+        notice={authNotice}
+      />
+      <SignUpModal
+        open={signUpOpen}
+        onClose={() => setSignUpOpen(false)}
+        onRegistered={handleRegistered}
+      />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
