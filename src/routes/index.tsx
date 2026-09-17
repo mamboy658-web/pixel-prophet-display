@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import {
   Home,
   Play,
@@ -43,6 +43,7 @@ import sportyJetUltra from "@/assets/sporty-jet-ultra-package.jpg";
 import sportyKickCarsAsset from "@/assets/sporty-packages-kick-cars.jpg.asset.json";
 import sportyStrikerGlideSoccerAsset from "@/assets/sporty-packages-striker-glide-soccer.jpg.asset.json";
 import sportyWomanSpeedGliderAsset from "@/assets/sporty-packages-woman-speed-glider.jpg.asset.json";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -151,18 +152,63 @@ function Logo() {
 function SignUpModal({
   open,
   onClose,
-  onSuccess,
+  onRegistered,
 }: {
   open: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onRegistered: (email: string) => void;
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [remember, setRemember] = useState(true);
   const [keepSignedIn, setKeepSignedIn] = useState(true);
+  const [sportyId, setSportyId] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   if (!open) return null;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+
+    if (!/^\d{10}$/.test(sportyId)) {
+      setError("Sporty ID must contain exactly 10 digits.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setSubmitting(true);
+    const { error: signUpError } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+      options: {
+        emailRedirectTo: window.location.origin,
+        data: { sporty_id: sportyId, display_name: "" },
+      },
+    });
+    setSubmitting(false);
+
+    if (signUpError) {
+      const message = signUpError.message.toLowerCase();
+      if (message.includes("already registered") || message.includes("already exists")) {
+        setError("This email is already registered.");
+      } else if (message.includes("sporty id") || message.includes("duplicate key")) {
+        setError("This Sporty ID is already registered.");
+      } else {
+        setError(signUpError.message);
+      }
+      return;
+    }
+
+    onRegistered(email.trim());
+  };
 
   return (
     <div
@@ -192,26 +238,33 @@ function SignUpModal({
         {/* Form */}
         <form
           className="flex flex-1 flex-col gap-5 px-5 py-6 sm:flex-none"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSuccess();
-          }}
+          onSubmit={handleSubmit}
         >
           <div className="space-y-4">
             <input
               type="text"
-              placeholder="Spotify ID"
+              value={sportyId}
+              onChange={(e) => setSportyId(e.target.value.replace(/\D/g, "").slice(0, 10))}
+              placeholder="Sporty ID"
+              inputMode="numeric"
+              maxLength={10}
               className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              autoComplete="email"
               className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
+                autoComplete="new-password"
                 className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
               <button
@@ -226,7 +279,10 @@ function SignUpModal({
             <div className="relative">
               <input
                 type={showConfirm ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
+                autoComplete="new-password"
                 className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
               <button
@@ -239,6 +295,12 @@ function SignUpModal({
               </button>
             </div>
           </div>
+
+          {error && (
+            <p role="alert" className="text-sm font-medium text-primary">
+              {error}
+            </p>
+          )}
 
           <div className="flex items-center justify-between">
             <label className="flex cursor-pointer items-center gap-2">
@@ -269,9 +331,10 @@ function SignUpModal({
 
           <button
             type="submit"
-            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground"
+            disabled={submitting}
+            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Register
+            {submitting ? "Registering..." : "Register"}
           </button>
         </form>
       </div>
@@ -283,16 +346,50 @@ function LoginModal({
   open,
   onClose,
   onSuccess,
+  initialEmail = "",
+  notice = "",
 }: {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  initialEmail?: string;
+  notice?: string;
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
   const [keepSignedIn, setKeepSignedIn] = useState(true);
+  const [email, setEmail] = useState(initialEmail);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (initialEmail) setEmail(initialEmail);
+  }, [initialEmail]);
 
   if (!open) return null;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+    setSubmitting(true);
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+    setSubmitting(false);
+
+    if (signInError) {
+      setError(
+        signInError.message.toLowerCase().includes("email not confirmed")
+          ? "Please confirm your email before logging in."
+          : "Invalid email or password.",
+      );
+      return;
+    }
+
+    onSuccess();
+  };
 
   return (
     <div
@@ -322,21 +419,24 @@ function LoginModal({
         {/* Form */}
         <form
           className="flex flex-1 flex-col gap-5 px-5 py-6 sm:flex-none"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSuccess();
-          }}
+          onSubmit={handleSubmit}
         >
           <div className="space-y-4">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              autoComplete="email"
               className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
+                autoComplete="current-password"
                 className="w-full rounded-lg border border-primary bg-transparent px-4 py-3.5 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
               <button
@@ -349,6 +449,17 @@ function LoginModal({
               </button>
             </div>
           </div>
+
+          {error && (
+            <p role="alert" className="text-sm font-medium text-primary">
+              {error}
+            </p>
+          )}
+          {notice && (
+            <p role="status" className="text-sm font-medium text-success">
+              {notice}
+            </p>
+          )}
 
           <div className="flex items-center justify-between">
             <label className="flex cursor-pointer items-center gap-2">
@@ -379,9 +490,10 @@ function LoginModal({
 
           <button
             type="submit"
-            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground"
+            disabled={submitting}
+            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-base font-bold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Login
+            {submitting ? "Logging in..." : "Login"}
           </button>
 
           <div className="flex items-center justify-between text-sm font-medium text-success">
@@ -983,12 +1095,42 @@ function Index() {
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
+  const [authNotice, setAuthNotice] = useState("");
+
+  useEffect(() => {
+    let mounted = true;
+
+    void supabase.auth.getSession().then(({ data }) => {
+      if (mounted && data.session) setSignedIn(true);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (mounted && session) setSignedIn(true);
+      if (mounted && !session) setSignedIn(false);
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const enterHome = () => {
     setLoginOpen(false);
     setSignUpOpen(false);
+    setAuthNotice("");
     setSignedIn(true);
     window.scrollTo(0, 0);
+  };
+
+  const handleRegistered = (email: string) => {
+    setSignUpOpen(false);
+    setRegisteredEmail(email);
+    setAuthNotice("You have successfully registered.");
+    setLoginOpen(true);
   };
 
   if (signedIn) return <InvestmentHome />;
@@ -1025,8 +1167,21 @@ function Index() {
         </div>
       </header>
 
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} onSuccess={enterHome} />
-      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} onSuccess={enterHome} />
+      <LoginModal
+        open={loginOpen}
+        onClose={() => {
+          setLoginOpen(false);
+          setAuthNotice("");
+        }}
+        onSuccess={enterHome}
+        initialEmail={registeredEmail}
+        notice={authNotice}
+      />
+      <SignUpModal
+        open={signUpOpen}
+        onClose={() => setSignUpOpen(false)}
+        onRegistered={handleRegistered}
+      />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
